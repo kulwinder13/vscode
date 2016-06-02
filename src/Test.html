@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>VSC Editor</title>
+<style>
+    html, body { height: 100%; margin: 0; }
+    .box { display: flex; flex-flow: column; height: 100%; }
+    .box .row { flex: 0 1 auto; }
+    .box .row.content { flex: 1 1 auto; }
+</style>
+</head>
+<body>
+<div class='box'>
+    <div class='row content' id="editor"></div>
+</div>
+<script type="text/javascript" src="vs/loader.js"></script>
+<script type="text/javascript">
+'use strict';
+
+(function () {
+    require(['vs/editor/editor.main', 'vs/base/browser/ui/aria/aria'], function (main, aria) {
+        aria.setARIAContainer(document.body);
+
+        var editor = Monaco.Editor.create(document.getElementById('editor'), {
+            value: 'var foo = \'bar\';',
+            mode: 'text/typescript'
+        });
+
+        window.addEventListener('resize', function () {
+            editor.layout();
+        });
+    });
+})();
+</script>
+</body>
+</html>
